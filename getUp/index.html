@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="expires" content="-1">
+<title>微信找你妹</title>
+<link rel="stylesheet" type="text/css" href="assets/css/m.min.css">
+<link rel="stylesheet" type="text/css" href="assets/css/nz.css">
+<script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src='';var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();</script>
+</head>
+<body>
+</body>
+</html>
+<script id="tpl" type="text/html">
+
+<div class="grid">
+        <div class="page hide" id="loading">
+            <div class="loading-txt"><%=loading%></div>
+        </div>
+        <div class="page hide" id="index">
+			<div class="gz">
+				<img src="assets/img/gz.png" />
+			</div>
+            <div class="btns">
+                <button data-type="color" class="btn play-btn">
+                    <%=btn_start%>
+                </button>
+                <span class="fenxiang">
+                    <img src="assets/img/an_16.png" />
+                </span>
+            </div>
+        </div>
+        <div class="page hide" id="room">
+            <header>
+                <span class="lv">
+                    <%=score%>
+                    <em>
+                        
+                    </em>
+                </span>
+                <span class="time">
+                    <img src="assets/img/date.png" />
+					<em>60</em>
+                </span>
+            </header>
+			<img class="boom" src="assets/img/boom.png">
+            <div id="box" class="lv1">
+            </div>
+        </div>
+		
+		<div class="page hide dialog" id="eplay">
+   <!-- <div id="share-wx" style=""><p style="text-align: right; padding-left: 10px;"><img src="./share.png" id="share-wx-img" style="max-width: 280px; padding-right: 25px;"></p></div>-->
+            <div class="inner">
+                <div class="content gameover">
+                    <div class="inner-content">
+                        <h3></h3>
+						<h4></h4>
+						<img class="nz" src="assets/img/nz.png">
+                        <div class="btn-wrap">
+                            <a href="#" class="btn btn-boyaa">
+                                <img src="assets/img/an_03.png">
+                            </a>
+                            <a href="提现.html" class="btn btn-tx">
+                                <img src="assets/img/an_06.png">
+                            </a>
+                            <button class="btn play-btn">
+                                <%=btn_reTry%>
+                            </button>
+							<span class="fenxiang">
+								<img src="assets/img/an_16.png" />
+							</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="content pause">
+                    <div class="inner-content">
+                      
+                        <h3>
+                            <%=game_pause%>
+                        </h3>
+                        <div class="btn-wrap">
+                            <button class="btn btn-resume">
+                                <%=btn_resume%>
+                            </button>
+                            <a href="http://game2.id87.com/" target="_blank" class="btn btn-boyaa">
+                                <%=btn_more_game%>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+		
+        <div class="page hide dialog" id="dialog">
+   <!-- <div id="share-wx" style=""><p style="text-align: right; padding-left: 10px;"><img src="./share.png" id="share-wx-img" style="max-width: 280px; padding-right: 25px;"></p></div>-->
+            <div class="inner">
+                <div class="content gameover">
+                    <div class="inner-content">
+                        <h3></h3>
+						<h4></h4>
+						<img class="nz" src="assets/img/nz.png">
+                        <div class="btn-wrap">
+                            <a href="#" class="btn btn-boyaa">
+                                <img src="assets/img/an_03.png">
+                            </a>
+                            <a href="提现.html" class="btn btn-tx">
+                                <img src="assets/img/an_06.png">
+                            </a>
+                            <button class="btn btn-restart">
+                                <%=btn_reTry%>
+                            </button>
+							<span class="fenxiang">
+								<img src="assets/img/an_16.png" />
+							</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="content pause">
+                    <div class="inner-content">
+                      
+                        <h3>
+                            <%=game_pause%>
+                        </h3>
+                        <div class="btn-wrap">
+                            <button class="btn btn-resume">
+                                <%=btn_resume%>
+                            </button>
+                            <a href="http://game2.id87.com/" target="_blank" class="btn btn-boyaa">
+                                <%=btn_more_game%>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </ins>
+        </div>
+    </div>
+<div class="fxPop"></div>  
+<div class="gzPop">
+	<div>
+	<h2><img src="assets/img/qc_12.png"></h2>
+	计时规则：<br>
+	每关中都有一个闹钟与其他闹钟的时间不同，该闹钟从第一关9秒起开始计时，过关数越多，计时时间越短，在倒计时结束前找到该闹钟。<br><br>	
+	游戏规则：<br>
+	在最短闹钟计时结束前找到该闹钟并点击，游戏过关，新用户最高奖励5元现金，老用户最高奖励100元现金券<br><br>	
+	</div>
+</div>  
+</script>
+<script>
+
+var tx=0, //1未提现,0已提现
+	zg=0,//最高分
+	gameOverd=0,//是否通过玩游戏进入index
+	played =1;//是否玩过
+	 // gameOverd 1表示通过玩游戏进入的页面 0表示直接进入index页面.则需要加是否提现判断  未提现tx=0 则需显示提现按钮,提现则需要显示 奖励查询按钮
+	 //逻辑判断 1.表示通过玩游戏过关进入index的，则需要根据
+	
+	
+	
+</script>
+<script src="assets/js/libs.min.js"></script>
+<script src="assets/js/main.min3.js"></script>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<link type="text/css" rel="stylesheet" href="css/rmb.css">
+<script language="javascript" src="js/jquery-1.11.1.min.js"></script>
+<title>人民币大作战</title>
+</head>
+
+<body>
+<div class="boxBox">
+	<div class="box1">
+		<div class="gzTit"><img src="images/rm_25.png"></div>
+	</div>
+	<div class="box2">
+		<div class="gzTit"><img src="images/rm_11.png"></div>
+		<div class="gzCont">
+			<!--已玩过已提现调去对应数据,未玩为空-->
+			<span>
+			领奖时最高成绩：x张<br>
+			已获得xxx元现金
+			</span>
+			
+			
+			<!--已玩过未提现-->
+			<span>
+			领奖时最高成绩：x张<br>
+			可获得xxx元现金
+			</span>
+		</div>
+	</div>
+	<div class="gz">游戏规则</div>
+	<div class="button">
+		<a class="btn1"><img src="images/rm_18.png"></a>
+		<a class="btn2"><img src="images/rm_22.png"></a>
+		<a class="btn5" style="display:block;"><img src="images/rm_34.png"></a>
+		<a class="btn3"><img src="images/rm_27.png"></a>
+	</div>
+	<div class="gzPop">
+		<div>
+			<span></span>
+			20秒内，新版和旧版人民币100元会交替出现在屏幕最上方，在人民币掉落之前“点击按钮”判断人民币是新版的还是旧版的。<br><br>
+			奖励办法：<br>
+			每判断正确一张获得现金，错误扣掉等同现金，游戏结束后用户获得的现金可提现
+		</div>
+	</div>
+	<div class="fxPop"></div>
+</div>
+<div class="yanshi">
+	<img src="images/ys.gif">
+	<span class="yanshiGo"></span>
+</div>
+<div class="gamePlay">
+	<div class="gameDate">25"00</div>
+	<div class="gameFs">我的分数：<span>0</span>分<em>-1</em><i>+1</i></div>
+	<div class="gameBox">
+		<div>
+			<ul>
+				<li class="gameZt0"></li>
+				<li></li>
+			</ul>
+			<ul>
+				<li></li>
+				<li class="gameZt1"></li>
+			</ul>
+			<ul>
+				<li class="gameZt0"></li>
+				<li></li>
+			</ul>
+			<ul>
+				<li class="gameZt0"></li>
+				<li></li>
+			</ul>
+			<ul class="gameOn">
+				<li></li>
+				<li class="gameZt1"></li>
+			</ul>
+		</div>
+	</div>
+	<div class="gameBtn">
+		<span>红</span>
+		<font>绿</font>
+	</div>
+</div>
+</body>
+<script language="javascript" src="js/adaptation.js"></script>
+<script>
+var	cash=0; //提现0为未提现;
+var Played=0; //是否玩过0为没有;
+
+</script>
+
+<script language="javascript" src="js/rmb.js"></script>
+</html>

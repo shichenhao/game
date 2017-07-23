@@ -1,0 +1,374 @@
+@charset "utf-8";
+*{margin:0;
+  padding:0;
+  list-style:none;
+  font-family:微软雅黑;
+  text-decoration:none;
+  box-sizing:border-box;
+  -webkit-text-size-adjust:none;}
+
+html{font-size:100px;}
+
+a img{border:0 none;}
+
+a{color:#000;}
+
+a:hover{color:#f00;}
+
+em,i{font-style:normal;}
+
+b,strong{font-weight:100;}
+
+body{font-size:0.12rem;
+	 background:url(../images/bg.jpg) no-repeat 0 0 / 100% 100%;
+	 width:3.2rem;
+	 min-height:4.9rem;
+	 position:relative;}
+
+.floatL{float:left;}
+
+.floatR{float:right;}
+
+.clear{clear:both;font-size:0;height:0;width:0;}
+
+.box{overflow:hidden;
+	 margin:0 auto;}
+
+.boxBox{
+	background:url(../images/rmb.png) no-repeat center 50% / 90%;
+	height:6rem
+}
+
+.gz{
+	cursor:pointer;
+	position:fixed;
+	top:0.15rem;
+	color:#fff;
+	font-weight:bold;
+	right:0.15rem;
+}
+
+.gzPop{
+	background:rgba(0,0,0,0.3);
+	width:100%;
+	height:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	z-index:1;
+	display:none;
+}
+
+.gzPop div{
+	width:2.5rem;
+	height:2rem;
+	font-size:0.119rem;
+	left:11%;
+	top:30%;
+	background:#ffdc7e;
+	border-radius:0.1rem;
+	border:0.05rem solid #ef5139;
+	padding:0.3rem 0.1rem 0;
+	line-height:160%;
+	margin:0 auto;
+	font-weight:bold;
+	color:#ea523b;
+	position:absolute;
+}
+
+.gzPop div span{
+	display:block;
+	width:2rem;
+	height:0.5rem;
+	position:absolute;
+	right:-0.18rem;
+	top:-0.25rem;
+	background:url(../images/rm_07.png) no-repeat 0 0 / 100%;
+}
+
+.gzTit{
+	text-align:center;
+	padding:0.7rem 0 0;
+}
+
+.gzTit img{width:80%;}
+
+.button{
+	position:absolute;
+	top:50%;
+	text-align:center;
+	width:100%;
+}
+
+
+.button a img{
+	width:45%;
+	display:block;
+	margin:0.15rem auto 0;
+}
+
+.gzCont{
+	font-size:0.22rem;
+	color:#fff;
+	font-weight:bold;
+	text-align:center;
+	line-height:150%;
+}
+
+.gzCont span{
+	display:block;
+	font-size:0.16rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.tixian{
+	position:relative;
+	height:5.6rem;
+}
+
+.tixianYe{
+	font-size:0.2rem;
+	color:#ffe475;
+	padding:0.80rem 0 0 1rem;
+	height:1.2rem;
+	background:url(../images/rm_15.png) no-repeat .6rem .75rem / 0.3rem;
+}
+
+.register{
+	width:2.6rem;
+	height:2rem;
+	padding:0.1rem 0 0 0.25rem;
+	margin:0 auto;
+}
+
+.register font{
+	font-size:0.1rem;
+	position:absolute;
+	color:#fff;
+	top:0.44rem;
+	left:0.1rem;
+}
+
+.register p{
+	height:0.64rem;
+	position:relative;
+}
+
+
+.register .text{
+	width:2.25rem;
+	height:0.4rem;
+	padding:0 0.1rem;
+	vertical-align:middle;
+	border:4px solid #ef5139;
+	border-radius:0.1rem;
+	font-size:0.13rem;
+	color:#999;
+	position:absolute;
+	left:0;
+	top:0;
+}
+
+.register .text2{
+	width:1.64rem;
+}
+
+.register p span,.register p img{
+	display:block;
+	width:0.56rem;
+	height:0.4rem;
+	text-align:center;
+	line-height:0.4rem;
+	background:#f26144;
+	font-size:0.1rem;
+	position:absolute;
+	border-radius:0.1rem;
+	border:2px solid #ef5139;
+	right:0.1rem;
+	color:#fff;
+}
+
+.register p img{
+	border:0 none;
+	border-radius:0;
+	height:0.3rem;
+	top:0.05rem;
+}
+
+.register .submit{
+	width:1.6rem;
+	background:url(../images/rm_30.png) no-repeat 0 0 / 88%;
+	height:0.4rem;
+	line-height:0.4rem;
+	margin:0 auto;
+	border:0 none;
+	font-size:0.2rem;
+	color:#fff;
+	position:absolute;
+	border-radius:0.5rem;
+	left:0.35rem;
+	top:0.07rem;
+}
+
+.register p span.registerYzm2{
+	display:none;
+}
+
+.fxPop{
+	background:url(../images/2000.png) no-repeat 80% 0.2rem;
+	background-color:rgba(0,0,0,0.5);
+	background-size:80% auto;
+	width:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	display:none;
+	height:100%;
+}
+
+.gamePlay{
+	overflow:hidden;
+	position:absolute;
+	left:0;
+	top:0;
+	display:none;
+	width:100%;
+}
+
+.gameDate{
+	text-align:center;
+	font-size:0.3rem;
+	color:#6bfe72;
+	padding:0.15rem 0 0;
+}
+
+.gameFs{
+	text-align:right;
+	color:#fff;
+	font-size:0.15rem;
+	padding:0.1rem 0.2rem 0 0;
+	position:relative;
+}
+
+.gameFs i,.gameFs em{
+	display:none;
+	color:#6bfe72;
+	position:absolute;
+	right:.25rem;
+	top:0rem;
+}
+
+.gameFs i{
+	color:#f00;
+}
+
+
+
+.gameBox{
+	height:3.2rem;
+	overflow:hidden;
+	position:absolute;
+	width:100%;
+	bottom:0.8rem;
+	left:0;
+}
+
+.gameBox div{
+	height:100%;
+	position:absolute;
+	top:-25%;
+	left:0;
+	width:100%;
+}
+
+.gameBox ul{
+	height:25%;
+}
+
+.gameBox ul li{
+	width:50%;
+	float:left;
+	height:100%;
+	background-repeat:no-repeat;
+	background-size:70%;
+	background-position:center center;
+}
+
+
+.gameZt0{
+	background-image:url(../images/money_07.jpg);
+}
+.gameZt1{
+	background-image:url(../images/money_03.jpg);
+}
+
+
+
+
+.gameBtn{
+	position:absolute;
+	bottom:0;
+	width:100%;
+	height:0.8rem;
+	padding:0.05rem;
+	background:#fff;
+	border-top:5px solid #ffc300;
+}
+
+.gameBtn span,.gameBtn font{
+	width:49%;
+	float:left;
+	height:0.65rem;
+	text-align:center;
+	line-height:0.65rem;
+	font-size:0.3rem;
+	background:#c64942;
+	font-weight:bold;
+	color:#fff;
+}
+
+.gameBtn font{
+	background:#77c689;
+	float:right;
+}
+
+
+
+
+.yanshi{
+	display:none;
+	position:relative;
+}
+
+.yanshiGo{
+	display:none;
+	width:47%;
+	height:0.45rem;
+	position:absolute;
+	left:26%;
+	top:46%;
+}
+
+.yanshi img{
+	width:100%;
+}
+
+
+
+
+
+.box2,.btn2,.btn5,.btn4{
+	display:none;
+}

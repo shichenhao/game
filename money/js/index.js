@@ -286,7 +286,7 @@ define(function (require) {
                     $("#shareFixed").show();
                 })
                 $(".box").on("click","#goBack",function(){
-                    init()
+                    window.location.href="";
                 })
                 $("#shareFixed").click(function(){
                     $("#shareFixed").hide();

@@ -1,0 +1,979 @@
+*, *:before, *:after {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: Helvetica;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-moz-tap-highlight-color: rgba(0, 0, 0, 0);
+	-moz-user-select: -moz-none;
+	-webkit-touch-callout: none;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	-ms-touch-action: pan-y;
+}
+
+a{
+	text-decoration: none;
+}
+
+.floatL{
+	float: left;
+}
+
+.floatR{
+	float: right;
+}
+
+body,html{
+	font-size: 200px;
+	background: #9e2415
+}
+
+.JJbox{
+	display: none;
+	position: relative;
+	width: 100%;
+	max-width: 720px;
+	min-width: 320px;
+	min-height: 6.72rem;
+	padding: 1.375rem 0 0.2rem;
+	margin: 0 auto;
+	background: url(../images/bg.jpg) no-repeat #77020e;
+	background-size: 100%;
+}
+
+.JJtit{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.JJphoto,.JJphotos{
+	width: 3.23rem;
+	height: 2.88rem;
+	position: relative;
+	margin: 0 auto;
+	background: url(../images/photo.jpg) no-repeat;
+	background-size: 100%;
+}
+
+.JJphotoBg{
+	width: 3.23rem;
+	height: 2.88rem;
+	background: url(../images/00.jpg) no-repeat;
+	background-size: 100%;
+	position: relative;
+}
+
+.JJphotoBg img{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.JJphoto img{
+	width: 100%;
+	display: none;
+}
+
+.JJphotos img{
+	display: none;
+}
+
+.JJphotos .JJover img{
+	display: block;
+}
+
+.JJjd{
+	width: 3.23rem;
+	height: .12rem;
+	margin: 0.1rem auto;
+	position: relative;
+}
+
+.JJjd p{
+	width: 3rem;
+	height: .12rem;
+	padding: 0.025rem 0.02rem 0;
+	border-radius: 0.12rem;
+	background: #7b0c00;
+}
+
+.JJjd img{
+	position: absolute;
+	right: 0rem;
+	top: -.18rem;
+	width: 0.22rem;
+}
+
+.JJjd span{
+	display: block;
+	float: left;
+	width: 0.392rem;
+	height: 0.07rem;
+	margin: 0 0.015rem;
+	border-radius: 0.07rem;
+	background: #942b0b;
+	transition:all 0.3s;
+	-webkit-transition:all 0.3s;
+
+}
+
+.JJjd span.hover{
+	background: #fda527;
+}
+
+.JJtext{
+	text-align: center;
+	width: 3.2rem;
+	margin: 0 auto;
+	font-size: 0.12rem;
+	color: #f7e3c9;
+	line-height: 150%;
+}
+
+.JJtext i{
+	font-style: normal;
+	color: #f5d983;
+	display: block;
+	font-size: 0.14rem;
+}
+
+.JJtext .JJendBtn{
+	margin-bottom: 0.1rem;
+}
+
+.JJtext b{
+	display: block;
+	color: #fee592;
+	padding: 0 0 0.05rem;
+	font-size:0.2rem;
+}
+
+.JJbtn{
+	padding: 0 0 0.2rem;
+	line-height: 0;
+	overflow: hidden;
+	text-align: center;
+}
+
+.JJbtn a{
+	position: relative;
+	display: inline-block;
+	font-size: 0.2rem;
+	width: 1.5rem;
+	height: 0.41rem;
+	line-height: 0.38rem;
+	margin: 0 0.1rem;
+	color: #942b0b;
+	font-weight: bold;
+	text-align: center;
+	background: url(../images/btn.png) no-repeat;
+	background-size: 100%;
+}
+
+.JJfirend{
+	text-align: center;
+	width: 2.88rem;
+	overflow: hidden;
+	margin: 0 auto;
+}
+
+.JJfirend p{
+	font-size: 0.1rem;
+	float: left;
+	color: #f7e3c9;
+	margin: 0 0.04rem;
+	width: 0.33rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+}
+
+.JJfirend img{
+	width: 0.33rem;
+	height: 0.33rem;
+	display: block;
+	border-radius: 0.33rem;
+	border: 2px solid #ab5623;
+	margin: 0 0 0.05rem;
+}
+
+.JJgz{
+	width: 0.91rem;
+	height: 0.21rem;
+	background: url(../images/gz.png) no-repeat;
+	background-size: 100%;
+	margin: 0.1rem auto 0;
+}
+
+
+
+
+
+#shareFixed{
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	max-width: 720px;
+	min-width: 320px;
+	display: none;
+	margin:auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.cengbg,.cengbg2{
+	background: rgba(0,0,0,0.4);
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+}
+
+.JJalert{
+	width: 2.33rem;
+	height: 3rem;
+	text-align: center;
+	padding: 0.35rem 0 0;
+	background: url(../images/yy.png) no-repeat;
+	background-size: 100%;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	display: none;
+}
+
+.JJalert2{
+	background-image: url(../images/yy2.png);
+}
+
+.baseGz:before{
+	content:"";
+	width: 12px;
+	height: 0.3rem;
+	border-left: 5px solid #cd974f;
+	position: absolute;
+	top: -0.3rem;
+	left: 50%;
+	margin-left: 1.03rem;
+}
+
+.JJalertClose{
+	position: absolute;
+	top: -0.3rem;
+	width: 0.25rem;
+	height: 0.25rem;
+	line-height: 0.2rem;
+	border-radius: 0.25rem;
+	border: 2px solid #f5d983;
+	background: #b17528;
+	color: #f5d983;
+	font-size: 0.24rem;
+	right: 0rem;
+}
+
+.JJalertTit{
+	font-size: 0.2rem;
+	font-weight: bold;
+	color: #bb7f31;
+	padding: 0 0 0.1rem;
+}
+
+.JJalertTit img{
+	display: block;
+	margin: 0 auto 0.1rem;
+	width: 1.865rem;
+}
+
+
+.JJalertTxt{
+	font-size: 0.14rem;
+	line-height: 150%;
+	color: #a65e01;
+	padding: 0 0.18rem;
+}
+
+.JJalertTxt b{
+	display: block;
+}
+
+.JJalertTxt span{
+	color: #bb7f31;
+	font-size: 0.13rem;
+	padding: 0.05rem 0;
+	display: block;
+}
+
+.alertBtn{
+	display: block;
+	margin: 0 auto;
+	width: 1.7rem;
+	height: 0.3rem;
+	line-height: 0.3rem;
+	background: #b8823b;
+	color: #fff;
+	font-size: 0.15rem;
+	border: 2px solid #dac197;
+	box-shadow: 0 0 0 3px #b8823b;  
+}
+
+.alertBtn2{
+	background: #c64c27;
+	box-shadow: 0 0 0 3px #c64c27;
+	border-color: #e0ab8f;
+}
+
+.JJalertTxt p{
+	text-align: left;
+	font-size: 0.115rem;
+	line-height: 180%;
+	padding: 0.08rem 0 0;
+	overflow: auto;
+	height: 2rem;
+}
+
+.JJalertTxt p span{
+	display: inline;
+	color: #dc4e23;
+	padding: 0;
+	font-size: 0.115rem;
+}
+
+.JJewm{
+	text-align: center;
+	font-size: 0.12rem;
+	color: #f7e3c9;
+	line-height: 150%;
+}
+
+.JJewm img{
+	display: block;
+	margin: 0.1rem auto;
+	width: 1rem;
+	border: 1px solid #c73224;
+	padding: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+.baseOder .alertBtn{
+	margin-top: 0.2rem;
+}
+
+
+.JJend{
+	display: none;
+	position: relative;
+	width: 100%;
+	max-width: 720px;
+	min-width: 320px;
+	margin: 0 auto;
+	height: 5.72rem;
+	background: url(../images/successbg.jpg) no-repeat;
+	background-size: 100%;
+	text-align: center;
+}
+
+.JJend1{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	height: 100%;
+	background-color: #ffc98e;
+}
+
+.JJend2{
+	overflow: hidden;
+}
+
+.JJendP img{
+	width: 100%;
+}
+
+.JJendTop{
+	padding: 0.5rem 0 0;
+}
+
+.JJendTop img{
+	width: 2.5rem;
+}
+
+.JJendTxt{
+	color: #fee592;
+	font-size: 0.2rem;
+	font-weight: bold;
+}
+
+.JJendTxt span{
+	display: block;
+	font-size: 0.15rem;
+	font-weight: 100;
+	padding: 0.1rem 0 0;
+	line-height: 150%;
+	color: #f7e3c9;
+}
+
+.JJendBtn{
+	text-align: center;
+	display: block;
+	width: 2.6rem;
+	height: 0.41rem;
+	margin: 0.1rem auto 0;
+	background: url(../images/no_10.png) no-repeat;
+	background-size: 100%;
+	color: #7d0510;
+	line-height: 0.38rem;
+	font-size: 0.18rem;
+}
+
+.JJendGift{
+	height: 0.21rem;
+	width: 1.11rem;
+	text-align: center;
+	line-height: 0.21rem;
+	margin: 0.2rem auto 0;
+	font-size: 0.12rem;
+	color: #f7aaa7;
+	background: url(../images/no_14.png) no-repeat;
+	background-size: 100%;
+}
+
+.JJsuccess{
+	position: relative;
+}
+
+.JJsuccessBox{
+	padding: 3.5rem 0 0;
+	position: relative;
+}
+
+.JJsuccess .JJwidth100{
+	position: absolute;
+	left: 0;
+	width: 100%;
+	max-width: 720px;
+	min-width: 320px;
+}
+
+.JJsuccess .JJphotos {
+	background: none;
+	position: absolute;
+	top: 0.6rem;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+}
+
+
+.JJlogin{
+	display: block;
+	height: 5.74rem;
+	min-height: auto;
+	padding: 2.65rem 0 0;
+}
+
+.JJlogin .JJimg{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.JJloginBox{
+	position: relative;
+}
+
+.JJwz{
+	top: 2.3rem;
+	left: 0;
+	display: block;
+	position: absolute;
+	width: 100%;
+}
+
+.JJloging{
+	padding: 0.2rem 0;
+}
+
+.JJloging p{
+	font-size: 0.1rem;
+	text-align: right;
+	width: 2.2rem;
+	margin: 0 auto;
+	padding: 0.1rem 0 0;
+}
+
+.JJloging p i{
+	color: #f5d983;
+	font-style: normal;
+}
+
+.JJloging .JJendBtn{
+	width: 2.2rem;
+	height: 0.35rem;
+	line-height: 0.32rem;
+}
+
+.JJloging .text{
+	display: block;
+	width: 2.2rem;
+	height: 0.35rem;
+	background: url(../images/btn_03.png) no-repeat;
+	background-size: 100%;
+	margin: 0.08rem auto 0;
+	position: relative;
+}
+
+.JJloging .text font{
+	display: block;
+	position: absolute;
+	top: 0.02rem;
+	right: 0.02rem;
+	width: 0.6rem;
+	text-align: center;
+	height: 0.28rem;
+	background: #ffd13f;
+	font-size: 0.09rem;
+	line-height: 0.28rem;
+	border-radius: 0 0.35rem 0.35rem 0;
+}
+
+.JJloging .text font i{
+	display: block;
+	width: 100%;
+	height: 100%;
+	background: url(../images/btn_07.png) no-repeat center;
+	background-size: 50%;
+}
+
+
+.text input{
+	display: block;
+	width: 100%;
+	height: 95%;
+	vertical-align: middle;
+	padding: 0 0.2rem;
+	background: none;
+	border: 0 none;
+	border-radius: 100%;
+	color: #fff;
+	font-size: 0.12rem;
+}
+
+
+
+.text ::-webkit-input-placeholder { /* WebKit browsers */ 
+color: #ccc; 
+} 
+.text :-moz-placeholder { /* Mozilla Firefox 4 to 18 */ 
+color: #ccc; 
+} 
+.text ::-moz-placeholder { /* Mozilla Firefox 19+ */ 
+color: #ccc; 
+} 
+.text :-ms-input-placeholder { /* Internet Explorer 10+ */ 
+color: #ccc; 
+} 
+
+
+.JJover{
+	width: 2.94rem;
+	height: 2.59rem;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+.JJover img{
+	position: absolute;
+}
+
+.JJdhbg{
+	width: 100%;
+	left: 50%;
+	top: 50%;
+	margin: -1.8rem 0 0 -1.8rem;
+	animation:bg 50s linear 0s infinite alternate;
+	-webkit-animation: bg 50s linear 0s infinite alternate;
+}
+
+.JJposition{
+	left: 0;
+	top: 0;
+	width: 100%;
+}
+
+.JJdh1{
+	width: 1.68rem;
+	left: 50%;
+	top: 0.19rem;
+	margin-left: -0.84rem;
+	animation:ydsx 1s linear infinite alternate;
+	-webkit-animation:ydsx 1s linear infinite alternate
+}
+
+.JJdh2{
+	width: 1.22rem;
+	top: 0.1rem;
+	right: -.6rem;
+	animation:yd 30s linear infinite,ydsx 1s linear infinite alternate;
+	-webkit-animation: yd 30s linear infinite,ydsx 1s linear infinite alternate;
+}
+
+.JJdh3{
+	width: 0.8rem;
+	left: -0.35rem;
+	top: 1.2rem;
+	transform:rotate(180deg);
+	-webkit-transform:rotate(180deg);
+	animation:yds 20s linear infinite,ydsx 1s .5s linear infinite alternate;
+	-webkit-animation: yds 20s linear infinite,ydsx 1s .5s linear infinite alternate;
+}
+
+.JJdh4{
+	width: 0.8rem;
+	top: 1.25rem;
+	left: .3rem;
+	margin: 0.45rem 0 0 0.8rem;
+	animation:cb 1s linear infinite alternate;
+	-webkit-animation:cb 1s linear infinite alternate
+}
+
+.JJdh5{
+	width: 0.8rem;
+	top: 1.25rem;
+	left: auto;
+	right: 1.13rem;
+	margin: 0.45rem 0 0 0;
+	animation:cbs 1s linear infinite alternate -1s;
+	-webkit-animation:cbs 1s linear infinite alternate -1s;
+}
+
+@keyframes cb
+{
+	0%  {
+			transform: rotate(10deg)translate(-0.76rem,-0.375rem);
+		}
+	100% {
+			transform: rotate(-10deg)translate(-0.76rem,-0.375rem);
+		}
+}
+@-webkit-keyframes cb 
+{
+	0%  {
+			transform: rotate(10deg)translate(-0.76rem,-0.375rem);
+		}
+	100% {
+			transform: rotate(-10deg)translate(-0.76rem,-0.375rem);
+		}
+}
+
+@keyframes cbs
+{
+	0%  {
+			transform: rotate(10deg)translate(0.76rem,-0.375rem);
+		}
+	100% {
+			transform: rotate(-10deg)translate(0.76rem,-0.375rem);
+		}
+}
+@-webkit-keyframes cbs 
+{
+	0%  {
+			transform: rotate(10deg)translate(0.76rem,-0.375rem);
+		}
+	100% {
+			transform: rotate(-10deg)translate(0.76rem,-0.375rem);
+		}
+}
+
+
+
+@keyframes bg
+{
+	0%   {
+			transform:rotate(0deg);}
+	100% {
+			transform:rotate(360deg);}
+}
+@-webkit-keyframes bg 
+{
+	0%   {
+			-webkit-transform:rotate(0deg);}
+	100% {
+			transform:rotate(360deg);}
+}
+
+@keyframes ydsx
+{
+	0%   {
+			margin-top:0px;}
+	100% {
+			margin-top:0.1rem;}
+}
+@-webkit-keyframes ydsx
+{
+	0%   {
+			margin-top:0px;}
+	100% {
+			margin-top:0.1rem;}
+}
+
+@keyframes yd
+{
+	0%   {
+			right:-1.22rem;}
+	100% {
+			right:3.2rem;}
+}
+@-webkit-keyframes yd 
+{
+	0%   {
+			right:-1.22rem;}
+	100% {
+			right:3.2rem;}
+}
+
+
+@keyframes yds
+{
+	0%   {
+			left:-.8rem;}
+	100% {
+			left:3.2rem;}
+}
+@-webkit-keyframes yds
+{
+	0%   {
+			left:-.8srem;}
+	100% {
+			left:3.2rem;}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.JJt3{
+	margin: 0.1rem auto 0;
+}
+
+
+
+.JJlogintel{
+	padding: .3rem 0 0;
+}
+
+
+
+
+.JJloginPas{
+	display: none;
+}
+
+
+
+
+.hide,.JJbox1,.JJbtn .myGift{
+	display: none;
+}
+
+
+.JJcgClose{
+	display: block;
+	position: absolute;
+	width: 0.325rem;
+	height: 0.325rem;
+	background: url(../images/no_07.png) no-repeat;
+	background-size: 100%;
+	right: 0.5rem;
+	top: 0.6rem;
+	z-index: 1;
+}
+
+
+
+
+
+
+/*loading*/
+
+.baseLoading{
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.5);
+}
+
+.spinner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 50px;
+  height: 50px;
+  margin: auto;
+  z-index: 1;
+}
+ 
+.container1 > div, .container2 > div, .container3 > div {
+  width: 15px;
+  height: 15px;
+  background-color: #fff;
+ 
+  border-radius: 100%;
+  position: absolute;
+  -webkit-animation: bouncedelay 1.2s infinite ease-in-out;
+  animation: bouncedelay 1.2s infinite ease-in-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+ 
+.spinner .spinner-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+ 
+.container2 {
+  -webkit-transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
+}
+ 
+.container3 {
+  -webkit-transform: rotateZ(90deg);
+  transform: rotateZ(90deg);
+}
+ 
+.circle1 { top: 0; left: 0; }
+.circle2 { top: 0; right: 0; }
+.circle3 { right: 0; bottom: 0; }
+.circle4 { left: 0; bottom: 0; }
+ 
+.container2 .circle1 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+}
+ 
+.container3 .circle1 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+ 
+.container1 .circle2 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+ 
+.container2 .circle2 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+}
+ 
+.container3 .circle2 {
+  -webkit-animation-delay: -0.7s;
+  animation-delay: -0.7s;
+}
+ 
+.container1 .circle3 {
+  -webkit-animation-delay: -0.6s;
+  animation-delay: -0.6s;
+}
+ 
+.container2 .circle3 {
+  -webkit-animation-delay: -0.5s;
+  animation-delay: -0.5s;
+}
+ 
+.container3 .circle3 {
+  -webkit-animation-delay: -0.4s;
+  animation-delay: -0.4s;
+}
+ 
+.container1 .circle4 {
+  -webkit-animation-delay: -0.3s;
+  animation-delay: -0.3s;
+}
+ 
+.container2 .circle4 {
+  -webkit-animation-delay: -0.2s;
+  animation-delay: -0.2s;
+}
+ 
+.container3 .circle4 {
+  -webkit-animation-delay: -0.1s;
+  animation-delay: -0.1s;
+}
+ 
+@-webkit-keyframes bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0.0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+ 
+@keyframes bouncedelay {
+  0%, 80%, 100% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 40% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}

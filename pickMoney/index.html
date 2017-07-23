@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title>捡钱大作战</title>
+<script language="javascript" src="js/jquery-1.7.2.min.js"></script>
+<script language="javascript" src="js/moneyUp.js"></script>
+<SCRIPT src="js/createjs.js" type="text/javascript"></SCRIPT>
+<SCRIPT type="text/javascript">
+	var isDesktop = navigator['userAgent'].match(/(ipad|iphone|ipod|android|windows phone)/i) ? false : true;
+	var fontunit        = isDesktop ? 20 : ((window.innerWidth>window.innerHeight?window.innerHeight:window.innerWidth)/320)*10;
+	document.write('<style type="text/css">'+
+		'html,body {font-size:'+(fontunit<30?fontunit:'30')+'px;}'+
+		(isDesktop?'#welcome,#GameTimeLayer,#GameLayerBG,#GameScoreLayer.SHADE{position: absolute;}':
+		'#GameTimeLayer,#GameLayerBG,#GameScoreLayer.SHADE{position:fixed;}@media screen and (orientation:landscape) {#landscape {display: box; display: -webkit-box; display: -moz-box; display: -ms-flexbox;}}')+
+		'</style>');
+</SCRIPT>
+<SCRIPT src="js/stats.js" type="text/javascript" charset="UTF-8"></SCRIPT>
+<SCRIPT type="text/javascript">
+	window.shareData = {
+	        "imgUrl": "images/caishen.jpg",
+	        "timeLineLink": "https://m.junrongdai.com/",
+	        "tTitle": "财神到，小伙伴们快来捡钱！",
+	        "tContent": "快来一起捡钱玩！"
+	    };
+	
+	var firstScore = -1; //第一次得分如果已玩过改成已玩过的分值即可;
+	var withdrawSash = 0 //0为没有提现、1为已提现;
+	
+$(function(){
+	init();
+	if(firstScore != -1){
+		$(".btn1").hide();
+		$(".btn2,.btn5").show();
+		if(withdrawSash != 0){
+			$(".btn2").hide();
+			$(".btn3").show();
+		}
+	}
+	
+})
+	if (isDesktop)
+		document.write('<div id="gameBody">');
+
+	var body, blockSize, GameLayer = [], GameLayerBG, touchArea = [], GameTimeLayer;
+	var transform, transitionDuration;
+
+	function init (argument) {
+		$(".cengDev").hide();
+		showWelcomeLayer();
+		body = document.getElementById('gameBody') || document.body;
+		body.style.height = window.innerHeight+'px';
+		transform = typeof(body.style.webkitTransform) != 'undefined' ? 'webkitTransform' : (typeof(body.style.msTransform) != 'undefined'?'msTransform':'transform');
+		transitionDuration = transform.replace(/ransform/g, 'ransitionDuration');
+
+		GameTimeLayer = document.getElementById('GameTimeLayer');
+		GameLayer.push( document.getElementById('GameLayer1') );
+		GameLayer[0].children = GameLayer[0].querySelectorAll('div');
+		GameLayer.push( document.getElementById( 'GameLayer2' ) );
+		GameLayer[1].children = GameLayer[1].querySelectorAll('div');
+		GameLayerBG = document.getElementById( 'GameLayerBG' );
+		if( GameLayerBG.ontouchstart === null ){
+			GameLayerBG.ontouchstart = gameTapEvent;
+		}else{
+			GameLayerBG.onmousedown = gameTapEvent;
+			//document.getElementById('landscape-text').innerHTML = '点我开始玩耍';
+			document.getElementById('landscape').onclick = winOpen;
+		}
+		gameInit();
+		window.addEventListener('resize', refreshSize, false);
+
+		setTimeout(function(){
+			var btn = document.getElementById('ready-btn');
+			//btn.innerHTML = ' 预备，上！'
+			//btn.style.backgroundColor = '#F00';
+			btn.onclick = function(){
+				closeWelcomeLayer();
+			} 
+
+		}, 500);
+	}
+	function winOpen() {
+		window.open(location.href+'?r='+Math.random(), 'nWin', 'height=500,width=320,toolbar=no,menubar=no,scrollbars=no');
+		var opened=window.open('about:blank','_self'); opened.opener=null; opened.close();
+	}
+	var refreshSizeTime;
+	function refreshSize(){
+		clearTimeout(refreshSizeTime);
+		refreshSizeTime = setTimeout(_refreshSize, 200);
+	}
+	function _refreshSize(){
+		countBlockSize();
+		for( var i=0; i<GameLayer.length; i++ ){
+			var box = GameLayer[i];
+			for( var j=0; j<box.children.length; j++){
+				var r = box.children[j],
+					rstyle = r.style;
+				rstyle.left = (j%4)*blockSize+'px';
+				rstyle.bottom = Math.floor(j/4)*blockSize+'px';
+				rstyle.width = blockSize+'px';
+				rstyle.height = blockSize+'px';
+			}
+		}
+		var f, a;
+		if( GameLayer[0].y > GameLayer[1].y ){
+			f = GameLayer[0];
+			a = GameLayer[1];
+		}else{
+			f = GameLayer[1];
+			a = GameLayer[0];
+		}
+		var y = ((_gameBBListIndex)%10)*blockSize;
+		f.y = y;
+		f.style[transform] = 'translate3D(0,'+f.y+'px,0)';
+
+		a.y = -blockSize*Math.floor(f.children.length/4)+y;
+		a.style[transform] = 'translate3D(0,'+a.y+'px,0)';
+
+	}
+	function countBlockSize(){
+		blockSize = body.offsetWidth/4;
+		body.style.height = window.innerHeight+'px';
+		GameLayerBG.style.height = window.innerHeight+'px';
+		touchArea[0] = window.innerHeight-blockSize*0;
+		touchArea[1] = window.innerHeight-blockSize*3;
+	}
+	var _gameBBList = [], _gameBBListIndex = 0, _gameOver = false, _gameStart = false, _gameTime, _gameTimeNum, _gameScore;
+	function gameInit(){
+        createjs.Sound.registerSound( {src:"images/err.mp3", id:"err"} );
+        createjs.Sound.registerSound( {src:"images/end.mp3", id:"end"} );
+        createjs.Sound.registerSound( {src:"images/tap.mp3", id:"tap"} );
+		gameRestart();
+	}
+	function gameRestart(){
+		console.log('gameRestart');
+		_gameBBList = [];
+		_gameBBListIndex = 0;
+		_gameScore = 0;
+		_gameOver = false;
+		_gameStart = false;
+		_gameTimeNum = 2000;
+		GameTimeLayer.innerHTML = creatTimeText(_gameTimeNum);
+		countBlockSize();
+		refreshGameLayer(GameLayer[0]);
+		refreshGameLayer(GameLayer[1], 1);
+	}
+	function gameStart(){
+		_gameStart = true;
+		_gameTime = setInterval(gameTime, 10);
+	}
+	function gameOver(){
+		_gameOver = true;
+		clearInterval(_gameTime);
+		setTimeout(function(){
+			GameLayerBG.className = '';
+			showGameScoreLayer();
+		}, 1500);
+	}
+	function gameTime(){
+		_gameTimeNum --;
+		if( _gameTimeNum <= 0){
+			GameTimeLayer.innerHTML = '&nbsp;&nbsp;&nbsp;&nbsp;时间到！';
+			gameOver();
+			GameLayerBG.className += ' flash';
+			createjs.Sound.play("end");
+		}else{
+			GameTimeLayer.innerHTML = creatTimeText(_gameTimeNum);
+		}
+	}
+	function creatTimeText( n ){
+		var text = (100000+n+'').substr(-4,4);
+		text = '&nbsp;&nbsp;'+text.substr(0,2)+"'"+text.substr(2)+"''"
+		return text;
+	}
+	var _ttreg = / t{1,2}(\d+)/, _clearttClsReg = / t{1,2}\d+| bad/;
+	function refreshGameLayer( box, loop, offset ){
+		var i = Math.floor(Math.random()*1000)%4+(loop?0:4);
+		for( var j=0; j<box.children.length; j++){
+			var r = box.children[j],
+				rstyle = r.style;
+			rstyle.left = (j%4)*blockSize+'px';
+			rstyle.bottom = Math.floor(j/4)*blockSize+'px';
+			rstyle.width = blockSize+'px';
+			rstyle.height = blockSize+'px';
+			r.className = r.className.replace(_clearttClsReg, '');
+			if( i == j ){
+				_gameBBList.push( {cell:i%4, id:r.id} );
+				r.className += ' t'+(Math.floor(Math.random()*1000)%5+1);
+				r.notEmpty = true;
+				i = ( Math.floor(j/4)+1)*4+Math.floor(Math.random()*1000 )%4;
+			}else{
+				r.notEmpty = false;
+			}
+		}
+		if( loop ){
+			box.style.webkitTransitionDuration = '0ms';
+			box.style.display          = 'none';
+			box.y                      = -blockSize*(Math.floor(box.children.length/4)+(offset||0))*loop;
+			setTimeout(function(){
+				box.style[transform] = 'translate3D(0,'+box.y+'px,0)';
+				setTimeout( function(){
+					box.style.display     = 'block';
+				}, 100 );
+			}, 200 );
+		} else {
+			box.y = 0;
+			box.style[transform] = 'translate3D(0,'+box.y+'px,0)';
+		}
+		box.style[transitionDuration] = '150ms';
+	}
+	function gameLayerMoveNextRow(){
+		for(var i=0; i<GameLayer.length; i++){
+			var g = GameLayer[i];
+			g.y += blockSize;
+			if( g.y > blockSize*(Math.floor(g.children.length/4)) ){
+				refreshGameLayer(g, 1, -1);
+			}else{
+				g.style[transform] = 'translate3D(0,'+g.y+'px,0)';
+			}
+		}
+	}
+	function gameTapEvent(e){
+		if (_gameOver) {
+			return false;
+		}
+		var tar = e.target;
+		var y = e.clientY || e.targetTouches[0].clientY,
+			x = (e.clientX || e.targetTouches[0].clientX)-body.offsetLeft,
+			p = _gameBBList[_gameBBListIndex];
+		if ( y > touchArea[0] || y < touchArea[1] ) {
+			return false;
+		}
+		if( (p.id==tar.id&&tar.notEmpty) || (p.cell==0&&x<blockSize) || (p.cell==1&&x>blockSize&&x<2*blockSize) || (p.cell==2&&x>2*blockSize&&x<3*blockSize) || (p.cell==3&&x>3*blockSize) ){
+			if( !_gameStart ){
+				gameStart();
+			}
+        	createjs.Sound.play("tap");
+			tar = document.getElementById(p.id);
+			tar.className = tar.className.replace(_ttreg, ' tt$1');
+			_gameBBListIndex++;
+			_gameScore ++; 
+			gameLayerMoveNextRow();
+		}else if( _gameStart && !tar.notEmpty ){
+			createjs.Sound.play("err");
+			gameOver();
+			tar.className += ' bad';
+		}
+		return false;
+	}
+	function createGameLayer(){
+		var html = '<div id="GameLayerBG">';
+		for(var i=1; i<=2; i++){
+			var id = 'GameLayer'+i;
+			html += '<div id="'+id+'" class="GameLayer">';
+			for(var j=0; j<10; j++ ){
+				for(var k=0; k<4; k++){
+					html += '<div id="'+id+'-'+(k+j*4)+'" num="'+(k+j*4)+'" class="block'+(k?' bl':'')+'"></div>';
+				}
+			}
+			html += '</div>';
+		}
+		html += '</div>';
+
+		html += '<div id="GameTimeLayer"></div>';
+
+		return html;
+	}
+	function closeWelcomeLayer(){
+		$(".box,.bgceng").hide();
+		$("#GameLayerBG,#GameTimeLayer").show();
+		$(".yanshi").remove();
+		var l = document.getElementById('welcome');
+		l.style.display = 'none';
+	}
+	function showWelcomeLayer(){
+		var l = document.getElementById('welcome');
+		l.style.display = 'none';
+	}
+	function showGameScoreLayer(){
+		var l = document.getElementById('GameScoreLayer');
+		var c = document.getElementById(_gameBBList[_gameBBListIndex-1].id).className.match(_ttreg)[1];
+		l.className = l.className.replace(/bgc\d/, 'bgc'+c);
+		document.getElementById('GameScoreLayer-text').innerHTML = shareText(_gameScore);
+		document.getElementById('GameScoreLayer-score').innerHTML = '得分&nbsp;&nbsp;'+_gameScore;
+		var bast = cookie('bast-score');
+		if( !bast || _gameScore > bast ){
+			bast = _gameScore;
+			cookie('bast-score', bast, 100);
+		}
+		document.getElementById('GameScoreLayer-bast').innerHTML = '最佳&nbsp;&nbsp;'+bast;
+		// l.style.display = 'block'; 旧的游戏结束隐藏
+		$(".box").show();
+		$(".moneyTit").hide();
+		$(".btn1").hide();
+		$(".btn2,.btn5").show();
+		if(withdrawSash != 0){
+			$(".btn2").hide();
+			$(".btn3").show();
+		}
+		var num=(_gameScore-30)*85+2408;
+		window.shareData.tTitle = '我去！我刚捡到了'+_gameScore*100+'元，财运强过'+num+'人！'
+	}
+	function hideGameScoreLayer(){
+		var l = document.getElementById('GameScoreLayer');
+		l.style.display = 'none';
+		$(".box").hide();
+		$("#GameLayerBG").show();
+	}
+	function replayBtn(){
+		gameRestart();
+		hideGameScoreLayer();
+	}
+	function backBtn(){
+		gameRestart();
+		hideGameScoreLayer();
+		showWelcomeLayer();
+	}
+	var mebtnopenurl = 'http://mp.weixin.qq.com/s?__biz=MjM5ODMzMjk5Nw==&mid=200442232&idx=1&sn=bb981cf0ec10bc9bf28f24179744f511&from=singlemessage&isappinstalled=0#rd';
+	function shareText( score ){
+		/*if( score <= 50 )
+			return '财运不错，捡到了'+score*100+'大洋！<br/><img src="files/rmb2.png" /><br/>离土豪又近了一步！';
+		if( score <= 120 )
+			return '财神到，捡到了'+score*100+'大洋！<br/><img src="files/rmb2.png" /><br/>离土豪又近了一步！';
+		if( score <= 150 )
+			return '帅呆了！捡到'+score*100+'大洋！<br/><img src="files/rmb2.png" /><br/>离土豪又近了一步！';
+		if( score <= 199 )
+			return '太牛了！捡到'+score+'大洋！<br/><img src="files/rmb2.png" /><br/>离土豪又近了一步！';
+		*/
+		scoreVal = score ;
+		score = (score*15)/365;
+		score = score.toFixed(2)
+		if(firstScore== -1){
+			firstScore=score; //记录第一次得分
+			firstScore=score; //记录第一次得分
+			return '<span>本次成绩'+scoreVal*100+'￥</span><i>恭喜您获得'+score+'元现金</i><font>结算成绩'+scoreVal*100+'￥</font>';
+		}
+		else{
+			if(withdrawSash != 0){
+				$(".btn2").hide();
+				$(".btn3").show();
+				return '<span>本次成绩'+scoreVal*100+'￥</span><i>您已获得'+firstScore+'元现金</i><font>结算成绩'+scoreVal*100+'￥</font>';
+			}
+			else{
+				return '<span>本次成绩'+scoreVal*100+'￥</span><i>有'+firstScore+'元现金可提现</i><font>结算成绩'+scoreVal*100+'￥</font>';
+			}
+		}
+	}
+	
+	function toStr(obj) {
+		if ( typeof obj == 'object' ) {
+			return JSON.stringify(obj);
+		} else {
+			return obj;
+		}
+		return '';
+	}
+	function cookie(name, value, time) {
+		if (name) {
+			if (value) {
+				if (time) {
+					var date = new Date();
+					date.setTime(date.getTime() + 864e5 * time), time = date.toGMTString();
+				}
+				return document.cookie = name + "=" + escape(toStr(value)) + (time ? "; expires=" + time + (arguments[3] ? "; domain=" + arguments[3] + (arguments[4] ? "; path=" + arguments[4] + (arguments[5] ? "; secure" : "") : "") : "") : ""), !0;
+			}
+			return value = document.cookie.match("(?:^|;)\\s*" + name.replace(/([-.*+?^${}()|[\]\/\\])/g, "\\$1") + "=([^;]*)"), value = value && "string" == typeof value[1] ? unescape(value[1]) : !1, (/^(\{|\[).+\}|\]$/.test(value) || /^[0-9]+$/g.test(value)) && eval("value=" + value), value;
+		}
+		var data = {};
+		value = document.cookie.replace(/\s/g, "").split(";");
+		for (var i = 0; value.length > i; i++) name = value[i].split("="), name[1] && (data[name[0]] = unescape(name[1]));
+		return data;
+	}
+	document.write(createGameLayer());
+	
+	function share(){
+		document.getElementById('share-wx').style.display = 'block';
+		document.getElementById('share-wx').onclick = function(){
+			this.style.display = 'none';
+		};
+	}
+	
+	document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+	    
+	    WeixinJSBridge.on('menu:share:appmessage', function(argv) {
+	        WeixinJSBridge.invoke('sendAppMessage', {
+	            "img_url": window.shareData.imgUrl,
+	            "link": window.shareData.timeLineLink,
+	            "desc": window.shareData.tContent,
+	            "title": window.shareData.tTitle
+	        }, function(res) {
+	        	document.location.href = mebtnopenurl;
+	        })
+	    });
+
+	    WeixinJSBridge.on('menu:share:timeline', function(argv) {
+	        WeixinJSBridge.invoke('shareTimeline', {
+	            "img_url": window.shareData.imgUrl,
+	            "img_width": "640",
+	            "img_height": "640",
+	            "link": window.shareData.timeLineLink,
+	            "desc": window.shareData.tContent,
+	            "title": window.shareData.tTitle
+	        }, function(res) {
+	        	document.location.href = mebtnopenurl;
+	        });
+	    });
+	}, false);
+</SCRIPT>
+<link type="text/css" rel="stylesheet" href="css/public.css" />
+<link type="text/css" rel="stylesheet" href="css/moneyUp.css" />
+<link type="text/css" rel="stylesheet" href="css/game.css">
+
+</head>
+<body>
+<div class="cengDev" style="position:fixed;width:100%;height:100%;background:rgba(0,0,0,0.5);left:0;top:0;z-index:999;">
+	<div class="spinner">
+	  <div class="spinner-container container1">
+		<div class="circle1"></div>
+		<div class="circle2"></div>
+		<div class="circle3"></div>
+		<div class="circle4"></div>
+	  </div>
+	  <div class="spinner-container container2">
+		<div class="circle1"></div>
+		<div class="circle2"></div>
+		<div class="circle3"></div>
+		<div class="circle4"></div>
+	  </div>
+	  <div class="spinner-container container3">
+		<div class="circle1"></div>
+		<div class="circle2"></div>
+		<div class="circle3"></div>
+		<div class="circle4"></div>
+	  </div>
+	</div>
+</div>
+<style>
+.spinner {
+  width: 35px;
+  height: 35px;
+  text-align:center;
+  position:relative;
+  margin:70% auto 0;
+  
+}
+
+.container1 > div, .container2 > div, .container3 > div {
+  width: 10px;
+  height:10px;
+  background-color: #fff;
+
+  border-radius: 100%;
+  position: absolute;
+  -webkit-animation: bouncedelay 1.2s infinite ease-in-out;
+  animation: bouncedelay 1.2s infinite ease-in-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.spinner .spinner-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.container2 {
+  -webkit-transform: rotateZ(45deg);
+  transform: rotateZ(45deg);
+}
+
+.container3 {
+  -webkit-transform: rotateZ(90deg);
+  transform: rotateZ(90deg);
+}
+
+.circle1 { top: 0; left: 0; }
+.circle2 { top: 0; right: 0; }
+.circle3 { right: 0; bottom: 0; }
+.circle4 { left: 0; bottom: 0; }
+
+.container2 .circle1 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+}
+
+.container3 .circle1 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+.container1 .circle2 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+
+.container2 .circle2 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+}
+
+.container3 .circle2 {
+  -webkit-animation-delay: -0.7s;
+  animation-delay: -0.7s;
+}
+
+.container1 .circle3 {
+  -webkit-animation-delay: -0.6s;
+  animation-delay: -0.6s;
+}
+
+.container2 .circle3 {
+  -webkit-animation-delay: -0.5s;
+  animation-delay: -0.5s;
+}
+
+.container3 .circle3 {
+  -webkit-animation-delay: -0.4s;
+  animation-delay: -0.4s;
+}
+
+.container1 .circle4 {
+  -webkit-animation-delay: -0.3s;
+  animation-delay: -0.3s;
+}
+
+.container2 .circle4 {
+  -webkit-animation-delay: -0.2s;
+  animation-delay: -0.2s;
+}
+
+.container3 .circle4 {
+  -webkit-animation-delay: -0.1s;
+  animation-delay: -0.1s;
+}
+
+@-webkit-keyframes bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0.0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes bouncedelay {
+  0%, 80%, 100% { 
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 40% { 
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}
+</style>
+<div class="box">
+	<div class="moneyTop">
+		<div class="moneyBg"></div>
+		<div class="moneyCont"></div>
+		<div class="moneyQ"></div>
+		<div class="gameJq" id="GameScoreLayer-text"></div>
+		<div class="moneyTit"><img src="images/bt_03.png"></div>
+		<span class="moneyRules">游戏规则</span>
+		<img src="images/hand.png" class="BagHand">
+		<img src="images/money_06.png" class="moneyMonkey">
+		<img src="images/money_03.png" class="moneyBag">
+	</div>
+	<div class="moneyBottom">
+		<a href="javascript:void(0)" class="btn1 btnYanshi"><img src="images/btn3.png"></a>
+		<a href="提现.html" class="btn2"><img src="images/btn4.png"></a>
+		<a href="javascript:replayBtn()" class="btn5"><img src="images/btn5.png"></a>
+		<a href="javascript:void(0)" class="btn3"><img src="images/btn2.png"></a>
+		<a href="javascript:void(0)" class="btn6"><img src="images/btn6.png"></a>
+		<a href="javascript:share()" class="btn4"><img src="images/btn1.png"></a>
+	</div>
+	<div class="moneyP moneyPbg"></div>
+	<div class="moneyP moneyGz">
+		<img src="images/gz.png">
+		<span class="PopClose">×</span>
+		<h2>游戏规则</h2>
+		<p>1.指定时间内点击屏幕上出现的钱，捡的越多，获得现金奖励越多</p>
+		<p>2.以第一次游戏成绩结算奖励</p>
+		<p>3.游戏限时：20s</p>
+		<h2>奖励计算方式</h2>
+		<p>1.0-5000元获得1元奖励</p>
+		<p>2.5100-10000元获得2元奖励</p>
+		<p>3.10100-15000元获得3元奖励</p>
+		<p>4.15100-20000元获得4元奖励</p>
+		<p>5.20000元以上获得5元奖励</p>
+	</div>
+</div>
+<div class="bgceng"></div>
+<div class="yanshi">
+	<img src="images/yanshi.gif" />
+	<a href="javascript:void(0)" style="display:none;" class="btn1" id="ready-btn"><img src="images/btn3.png"></a>
+	<a href="javascript:void(0)" class="btn1s">游戏演示</a>
+</div>
+<DIV class="BBOX SHADE bgc1" id="GameScoreLayer" style="display: none;">
+<DIV style="padding: 0px 5%;">
+<DIV id="GameScoreLayer-text"></DIV>
+<DIV id="GameScoreLayer-score" style="margin-bottom: 1em;display:none;">得分</DIV> 
+<DIV id="GameScoreLayer-bast" style='display:none;'>最佳</DIV>
+<BR>
+<DIV class="BOX" id="GameScoreLayer-share">
+<DIV class="btn BOX-S" id="mebtn" 
+onclick="window.open(mebtnopenurl)">土豪点我！</DIV></DIV></DIV></DIV>
+<DIV class="SHADE BOX-M" id="welcome" style="display:none;">
+<DIV class="welcome-bg FILL"></DIV>
+<DIV class="FILL BOX-M" style="left: 0px; top: 0px; right: 0px; bottom: 0px; position: absolute; z-index: 5;">
+<DIV style="margin: 0px 8% 0px 9%;">
+<DIV style="color: rgb(254, 240, 2); font-size: 2.6em;">捡钱大作战</DIV><BR>
+<DIV 
+style="color: rgb(255, 255, 255); line-height: 1.5em; font-size: 2.2em;">天降横财，看看你有没有财运？！</DIV><BR><BR>
+<DIV class="btn loading"  style="margin: 0px auto; width: 8em; height: 1.7em; color: rgb(255, 255, 255); line-height: 1.7em; font-size: 2.2em; display: inline-block;"></DIV></DIV></DIV></DIV>
+<DIV class="SHADE BOX-M" id="landscape" style="background: rgba(0, 0, 0, 0.9);">
+<DIV class="welcome-bg FILL"></DIV>
+<DIV id="landscape-text" 
+style="color: rgb(255, 255, 255); font-size: 3em;">请竖屏玩耍</DIV></DIV>
+<DIV id="share-wx">
+<P style="text-align: right; "><IMG id="share-wx-img" style="width:100%;padding:0.1rem 0.2rem 0 0;" 
+src="images/2000.png"></P></DIV>
+<SCRIPT type="text/javascript">
+	if (isDesktop)
+		document.write('</div>');
+</SCRIPT>
+<div style='display:none'>
+</div>
+</BODY></HTML>

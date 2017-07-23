@@ -189,6 +189,9 @@ define(function (require) {
                     return false;
                 }
                 document.addEventListener('touchmove', preventDefaultScroll, false);
+                document.querySelector('body').addEventListener('touchstart', function (ev) {
+                    event.preventDefault();
+                });
                 if(inviterUserId){
                     firendInit();
                 }

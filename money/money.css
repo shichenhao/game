@@ -48,6 +48,7 @@ a{
 body,html{
 	font-size: 200px;
 	background: #db143c;
+	overflow: hidden;
 }
 
 .sqBox{

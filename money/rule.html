@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>数钱</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi">
+	<link rel="stylesheet" href="money.css">
+</head>
+<body>
+	<div class="gzBox">
+		<div class="gz">
+			<span class="gzDate">活动时间<br>2017/4/6-2017/4/15</span>
+			<p>1、数钱时间为8秒，“数”多少送多少体验金奖励；</p>
+			<p>2、每个用户可多次游戏，但只可领取一次奖励；</p>
+			<p>3、邀好友帮自己数钱，好友帮忙数的金额将累计到自己的排行榜总金额里；</p>
+			<p>4、每位用户可帮1位好友数钱，可多次游戏,但只记录一次数钱成绩；</p>
+			<p>5、活动结束后，排行榜前300名用户，可获得额外奖励；</p>
+			<div>
+				<span><font>排名</font>体验金奖励</span>
+				<span><font>1</font>1000000元</span>
+				<span><font>2</font>800000元</span>
+				<span><font>3</font>500000元</span>
+				<span><font>4-10</font>100000元</span>
+				<span><font>11-99</font>100000元</span>
+				<span><font>100-300</font>10元现金券</span>
+			</div>
+			<p>6、好友通过您分享的链接进行注册，可同享邀请活动奖励 ;</p>
+			<p>7、发放的体验金奖励，在“我的账户-体验金”查看;</p>
+			<p>8、发放的现金券奖励，在“我的账户-我的红包”查看；</p>
+			<p>9、活动过程中，如出现作弊行为，君融贷有权取消获奖资格、并在必要时追究法律责任，如有其他疑问请拨打客服热线：400-0655-677。</p>
+		</div>
+	</div>
+
+<script type="text/javascript" src="js/zepto.js"></script>
+<script type="text/javascript" src="js/sea.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script>
+	var version = new Date().valueOf();
+    seajs.config({
+    	map: [
+            [/^(.*\.(?:css|js))(.*)$/i, '$1?ver=' + new Date().valueOf()]
+        ],
+        charset: 'utf-8',
+        timeout: 10000
+    });
+    seajs.use("./js/rule.js", function (app) {
+        app.run();
+    });
+</script>
+</body>
+</html>

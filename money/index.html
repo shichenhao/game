@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>数钱</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi">
+    <!-- <link rel="stylesheet" href="/css/merge.css" /> -->
+	<link rel="stylesheet" href="money.css">
+</head>
+<body>
+	<div class="box"></div>
+	<script type="text/template" id="initTemplate">
+	<div class="sqBox">
+		<!--div class="Top10"></div-->
+		<div class="sqDown">
+			<span class="floatL" id="firends">好友帮忙记录</span>
+			<span class="floatR" id="rule">活动规则</span>
+		</div>
+		<#if(data.type==1){#>
+		<div class="achievementTit">
+			<img src="images/sq_03.png" alt="">
+			<span class="achievementMoney">￥<#=data.num#></span>
+			<div class="achievementCont">
+				您已击败<span><#=data.beat#></span>的玩家
+				<#if(!data.activityRecord.pickMoney){#>
+				<font>（奖励仅可领取1次哦）</font>
+				<#}else{#>
+				<font>您已领取过奖励，继续邀好友冲刺排行榜吧~</font>
+				<#}#>
+			</div>
+		</div>
+		<#}else if(data.type==3){#>
+		<div class="achievementTit topTit">
+			<img src="images/sq_03.png" alt="">
+			<span class="achievementMoney">￥<#=data.num#></span>
+			<div class="achievementCont">
+				您已击败<span><#=data.beat#></span>的玩家
+				<font>小贴士：点击确定帮好友助力 !</font>
+			</div>
+		</div>
+		<#}else if(data.type==4){#>
+		<div class="achievementTit topTit">
+			<img src="images/sq_27.png" alt="">
+			<span class="achievementMoney">第<#=data.helpRanking#>名</span>
+			<div class="achievementCont">
+				恭喜您帮好友增加<#=data.num#>元
+				<font>帮好友上升<#=data.upHelpRanking#>名</font>
+			</div>
+		</div>
+		<#}else{#>
+		<div class="sqTit"></div>
+		<#}#>
+		<div class="sqBtn">
+			<#
+				if(data.logined==false && !data.firend){
+			#>
+				<a id="login">登录/注册</a>
+			<#
+				}
+				else if(data.type==2){
+			#>
+				<a id="firendGo">我要帮忙数</a>
+				<a id="firendFirst">我也要玩</a>
+			<#
+				}
+				else if(data.type==3){
+			#>
+				<a id="gameGo">再来一次</a>
+				<a id="firendEnd">确定成绩</a>
+			<#
+				}else if(data.type==4){
+			#>
+				<a id="firendFirst">我也要玩</a>
+			<#
+				}else{
+					if(!data.activityRecord.score){
+			#>
+				<a id="gameGo">数钱赢体验金</a>
+				<a id="share">邀请好友帮忙数钱</a>
+			<#
+				}
+				else{
+					if(!data.activityRecord.pickMoney){
+			#>
+				<a id="gameGo">再数一次</a>
+				<a id="receive">领取奖励</a>
+			<#
+				}else{
+			#>
+				<a id="gameGo">再数一次</a>
+				<a id="share">邀请好友帮忙数钱</a>
+			<#}}}#>
+		</div>
+	</div>
+	</script>
+	<script type="text/template" id="gameTemplate">
+		<div class="sqBox gameing">
+			<div class="gameTimes">倒计时：<span id="times">8</span>s</div>
+			<div class="gameNumber">￥<span id="Number">0</span></div>
+			<div class="gameHb">
+				<div class="gameAnimate gameAnimate3"></div>
+				<div class="gameAnimate gameAnimate2"></div>
+				<div class="gameAnimate gameAnimate1"></div>
+				<div class="gameAnimate"></div>
+				<div class="gameCeng"></div>
+			</div>
+		</div>
+	</script>
+	<script type="text/template" id="firedRecordTemplate">
+	<div class="sqBox topBox">
+		
+	</div>
+		<div class="sqBox recordBox">
+			<h2>当前成绩：<#=data.num#>元</h2>
+			<#for(var i=0,datas=data.activityRecordList.length;i<datas;i++){#>
+			<dl>
+				<dt><img src="<#=data.activityRecordList[i].photoUrl#>" alt=""></dt>
+				<dd>
+					<span><#=data.activityRecordList[i].mobile#><b><#=(data.activityRecordList[i].score*100)#>元</b></span>
+					<#=data.activityRecordList[i].powerDescription#>
+					<font><#=data.activityRecordList[i].createTime#></font>
+				</dd>
+			</dl>
+			<#}#>
+			<div class="invitationFirend" id="share">
+				邀好友帮忙数钱
+			</div>
+			<div class="invitationFirend" id="goBack">
+				返回
+			</div>
+		</div>
+	</script>
+	<div class="alertPop alertPop1">
+		<div class="alertBox">
+			<img src="images/alert_03.png" class="alertTit">
+			<div class="alertCont">
+				获得体验金
+				<span>￥5000</span>
+			</div>
+			<div class="alertBtn">
+				<span id="lookReward">查看奖励</span>
+				<span>确定</span>
+			</div>
+		</div>
+	</div>
+	<div class="alertPop alertPop2">
+		<div class="alertBox">
+			<img src="images/alert_06.png" class="alertTit hide">
+			<img src="images/alert_07.png" class="alertTit">
+			<div class="alertCont"></div>
+			<div class="alertBtn alertBtn2">
+				<span>确定</span>
+			</div>
+		</div>
+	</div>
+	<img src="images/shareFixed.png" id="shareFixed">
+	<div class="baseLoading">
+		<div class="spinner">
+		  <div class="spinner-container container1">
+		    <div class="circle1"></div>
+		    <div class="circle2"></div>
+		    <div class="circle3"></div>
+		    <div class="circle4"></div>
+		  </div>
+		  <div class="spinner-container container2">
+		    <div class="circle1"></div>
+		    <div class="circle2"></div>
+		    <div class="circle3"></div>
+		    <div class="circle4"></div>
+		  </div>
+		  <div class="spinner-container container3">
+		    <div class="circle1"></div>
+		    <div class="circle2"></div>
+		    <div class="circle3"></div>
+		    <div class="circle4"></div>
+		  </div>
+		</div>
+	</div>
+
+<script type="text/javascript" src="js/zepto.js"></script>
+<script type="text/javascript" src="js/sea.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script>
+	var version = new Date().valueOf();
+    seajs.config({
+    	map: [
+            [/^(.*\.(?:css|js))(.*)$/i, '$1?ver=' + new Date().valueOf()]
+        ],
+        charset: 'utf-8',
+        timeout: 10000
+    });
+    seajs.use("./js/index.js", function (app) {
+        app.run();
+    });
+</script>
+</body>
+</html>

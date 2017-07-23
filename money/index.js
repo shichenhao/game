@@ -316,6 +316,17 @@ define(function (require) {
                 $(".alertBtn #lookReward").click(function(){
                     window.location.href="/#path=views/account/coupons";                  
                 })
+                var preventDefaultScroll = function (event) {
+                    event.preventDefault();
+                    window.scroll(0, 0);
+                    return false;
+                };
+                document.addEventListener('touchmove', preventDefaultScroll, false);
+                $('html,body').on('touchmove', function (event) {
+                    event.preventDefault();
+                    window.scroll(0, 0);
+                    return false;
+                });
 
                 function windowAuto(){
                     w=$(window).width();

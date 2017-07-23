@@ -187,11 +187,8 @@ define(function (require) {
                     event.preventDefault();
                     window.scroll(0, 0);
                     return false;
-                }
+                };
                 document.addEventListener('touchmove', preventDefaultScroll, false);
-                document.querySelector('body').addEventListener('touchstart', function (ev) {
-                    event.preventDefault();
-                });
                 if(inviterUserId){
                     firendInit();
                 }

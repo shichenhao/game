@@ -58,7 +58,7 @@ define(function (require) {
                 else if(num2<32 && num2>41){
                     beat="90%";
                 }
-                else if(num2<40 && num2>151){
+                else if(num2>40 && num2<151){
                     beat="99%";
                 }
                 else if(num2>150){

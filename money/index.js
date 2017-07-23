@@ -198,14 +198,14 @@ define(function (require) {
                 document.addEventListener('touchmove', preventDefaultScroll, false);
                 //开始游戏
                 $(".box").on("click","#gameGo",function(){
-                    
+                    alert(2)
                 var preventDefaultScroll = function (event) {
                     alert(1)
                     event.preventDefault();
                     window.scroll(0, 0);
                     return false;
                 };
-                document.addEventListener('touchmove', preventDefaultScroll, false);
+                document.addEventListener('touchstart', preventDefaultScroll, false);
                     game();
                 })
 

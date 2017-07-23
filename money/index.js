@@ -195,6 +195,9 @@ define(function (require) {
                     return false;
                 };
                 document.addEventListener('touchmove', preventDefaultScroll, false);
+                $('html,body').on('touchmove', function (event) {
+                    event.preventDefault();
+                });
                 //开始游戏
                 $(".box").on("click","#gameGo",function(){
                     game();

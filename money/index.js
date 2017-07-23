@@ -183,6 +183,12 @@ define(function (require) {
     return{
         run:function(){
             var hashchangeEventFriend = function () {
+                var preventDefaultScroll = function (event) {
+                    event.preventDefault();
+                    window.scroll(0, 0);
+                    return false;
+                }
+                document.addEventListener('touchmove', preventDefaultScroll, false);
                 if(inviterUserId){
                     firendInit();
                 }
